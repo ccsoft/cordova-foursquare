@@ -31,12 +31,8 @@ To remove this plugin type:
 
 
 ##Usage
-	
-Give a reference to the js file (probably in your index.html)
 
-	<script type="text/javascript" src="plugins/CordovaFoursquare.js"></script>
-
-Then in js side (probably in your index.js)
+In your js (probably in your index.js);
 
 	// Get a reference to the plugin first
     var plugin = new CC.CordovaFoursquare();
