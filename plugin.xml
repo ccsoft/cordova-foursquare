@@ -18,8 +18,10 @@
     <engines>
       <engine name="cordova" version=">=3.0.0" />
     </engines>
-  
-	<asset src="www/CordovaFoursquare.js" target="plugins/CordovaFoursquare.js" />
+
+  <js-module src="www/CordovaFoursquare.js">
+    <merges target="CC" />
+  </js-module>
 
 	<!-- android -->
 	<platform name="android">
