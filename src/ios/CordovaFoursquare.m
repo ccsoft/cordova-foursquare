@@ -50,8 +50,8 @@ static NSString* clientId = nil;
 
 +(void)load {
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(handleOpenURL:)
-                                                 name:@"CDVPluginHandleOpenURLNotification"
+                                             selector:@selector(notifiedOpenUrl:)
+                                                 name:@"CordovaPluginOpenURLNotification"
                                                object:nil];
 }
 
@@ -92,8 +92,16 @@ static NSString* clientId = nil;
     return resultText;
 }
 
-+(void)handleOpenURL:(NSNotification*)notification {
-    NSURL *url = notification.object;
++(void)notifiedOpenUrl:(NSNotification*)notification {
+    NSDictionary* params = notification.userInfo;
+    if (params == nil) {
+        return;
+    }
+    
+    NSURL *url = [params objectForKey:@"url"];
+    //NSString *sourceApplication = [params objectForKey:@"sourceApplication"];
+    //NSLog(@"4SQ:: url: %@ sourceApp:%@", url, sourceApplication);
+    
     if ([[url scheme] isEqualToString:[callbackURI scheme]] == FALSE) {
         return;
     }
@@ -138,6 +146,7 @@ static NSString* clientId = nil;
                                [[CordovaFoursquare commandDelegate] sendPluginResult:pluginResultInCallback callbackId:[CordovaFoursquare loginCallbackId]];
                            }];
     }
+    [params setValue:@"foursquare" forKey:@"success"];
 }
 
 - (void)login:(CDVInvokedUrlCommand*)command
